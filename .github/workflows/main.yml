@@ -11,17 +11,17 @@ jobs:
 
     steps:
     - name: Download
-      run: Invoke-WebRequest https://files.xtunnel.ru/xtunnel/1.0.14/xTunnel.win-x64.1.0.14.zip -OutFile xtunnel.zip
+      run: Invoke-WebRequest https://cloudpub.ru/download/stable/clo-1.4.86-stable-windows-x86_64.zip -OutFile clo.zip
     - name: Extract
-      run: Expand-Archive xtunnel.zip
+      run: Expand-Archive clo.zip
     - name: Auth
-      run: .\xtunnel\xtunnel.exe -k $Env:XTUNNEL_AUTH_TOKEN
+      run: .\clo\clo.exe set token $Env:CLO_AUTH_TOKEN
       env:
-        XTUNNEL_AUTH_TOKEN: ${{ secrets.XTUNNEL_AUTH_TOKEN }}
+        CLO_AUTH_TOKEN: ${{ secrets.CLO_AUTH_TOKEN }}
     - name: Enable TS
       run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
     - run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
     - run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
     - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "@cyb3rking" -Force)
     - name: Create Tunnel
-      run: .\xtunnel\xtunnel.exe tcp 3389
+      run: .\clo\clo.exe publish tcp 3389
