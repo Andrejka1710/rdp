@@ -1,4 +1,4 @@
-name: Window 10
+name: Windows 10
 
 on: [push, workflow_dispatch]
 
@@ -11,7 +11,9 @@ jobs:
 
     steps:
     - name: Download
-      run: Invoke-WebRequest https://github.com/Andrejka1710/rdp/raw/refs/heads/master/ngrok.exe -OutFile .\ngrok\ngrok.exe
+      run: Invoke-WebRequest Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
+    - name: Extract
+      run: Expand-Archive ngrok.zip
     - name: Auth
       run: .\ngrok\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
       env:
