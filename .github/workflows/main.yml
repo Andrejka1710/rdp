@@ -15,7 +15,7 @@ jobs:
     - name: Extract
       run: Expand-Archive xtunnel.zip
     - name: Auth
-      run: .\xtunnel\xtunnel.exe authtoken $Env:XTUNNEL_AUTH_TOKEN
+      run: .\xtunnel\xtunnel.exe -k $Env:XTUNNEL_AUTH_TOKEN
       env:
         XTUNNEL_AUTH_TOKEN: ${{ secrets.XTUNNEL_AUTH_TOKEN }}
     - name: Enable TS
