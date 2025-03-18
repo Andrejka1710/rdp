@@ -1,11 +1,11 @@
-name: Windows 10
+name: Windows Server
 
 on: [push, workflow_dispatch]
 
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: windows-2016
     timeout-minutes: 9999
 
 
